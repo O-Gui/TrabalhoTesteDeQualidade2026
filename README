@@ -1,17 +1,19 @@
-Snap-Escala
+Care on Live
 ----------------------------------------------------------------------------------------------------------------------------
-Sistema para gestão inteligente de escalas de trabalho.
+Sistema para gestão e monitoramento inteligente de cuidados com idosos.
 ----------------------------------------------------------------------------------------------------------------------------
-Toda a documentação do projeto está organizada na Wiki do repositório.
-----------------------------------------------------------------------------------------------------------------------------
+Toda a documentação de análise e controle de risco está organizada na Wiki do repositório.
+
 Acesse aqui: https://github.com/O-Gui/TrabalhoTesteDeQualidade2026/wiki
 ----------------------------------------------------------------------------------------------------------------------------
 Sobre o Projeto:
-O Snap-Escala é uma solução voltada para otimizar a criação e gestão de escalas de trabalho, garantindo organização
-eficiência operacional e conformidade com regras de jornada.
+O Care on Live é um aplicativo voltado para conectar familiares e enfermeiros/cuidadores em tempo real. A solução garante
+segurança na execução de rotinas diárias, controle de insumos e total transparência através de alertas integrados e
+monitoramento remoto.
 ----------------------------------------------------------------------------------------------------------------------------
 Objetivo:
-Centralizar e automatizar o planejamento de turnos, reduzindo erros operacionais e melhorando a distribuição de equipes.
+Centralizar a comunicação e o acompanhamento de saúde do idoso, reduzindo falhas na rotina de cuidados, facilitando o
+trabalho do profissional e proporcionando tranquilidade à família.
 ----------------------------------------------------------------------------------------------------------------------------
 Status:
 Projeto em desenvolvimento para fins acadêmicos.
