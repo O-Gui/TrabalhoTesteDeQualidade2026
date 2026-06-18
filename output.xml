@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.13.2 on win32)" generated="2026-06-18T18:27:51.969891" rpa="false" schemaversion="5">
+<suite id="s1" name="Guilherme Basilio Interface" source="D:\Everything\atividades 2026 1\TrabalhoTesteDeQualidade2026\contribuicoes\guilherme_basilio_interface.robot">
+<test id="s1-t1" name="CT01 - Deve exibir solicitacoes no painel profissional" line="13">
+<kw name="Dado que o usuario faz login como profissional">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:27:52.341435" level="INFO">Opening browser 'chrome' to base url 'http://localhost:3000/login'.</msg>
+<arg>${URL_LOGIN}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-06-18T18:27:52.341195" elapsed="4.148813"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-06-18T18:27:56.490287" elapsed="0.029604"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:27:56.520440" level="INFO">Typing text 'cuidador@careonlive.com' into text field 'id=email'.</msg>
+<arg>${INPUT_EMAIL}</arg>
+<arg>cuidador@careonlive.com</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-18T18:27:56.520054" elapsed="0.112779"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:27:56.633269" level="INFO">Typing password into text field 'id=senha'.</msg>
+<msg time="2026-06-18T18:27:56.659273" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${INPUT_SENHA}</arg>
+<arg>senhaSegura123</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-18T18:27:56.633000" elapsed="0.062480"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:27:56.695849" level="INFO">Clicking button 'id=btnEntrar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-18T18:27:56.695628" elapsed="0.064329"/>
+</kw>
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>/profissional</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-06-18T18:27:56.760113" elapsed="0.041030"/>
+</kw>
+<status status="PASS" start="2026-06-18T18:27:52.340561" elapsed="4.460696"/>
+</kw>
+<kw name="Entao a pagina deve conter o texto">
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:27:56.813687" level="INFO">Current page contains text 'Painel do profissional'.</msg>
+<arg>${texto}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2026-06-18T18:27:56.801925" elapsed="0.011923"/>
+</kw>
+<arg>Painel do profissional</arg>
+<status status="PASS" start="2026-06-18T18:27:56.801579" elapsed="0.012414"/>
+</kw>
+<kw name="E a pagina deve conter o texto">
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:27:56.824405" level="INFO">Current page contains text 'Solicitacoes de servico'.</msg>
+<arg>${texto}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2026-06-18T18:27:56.814853" elapsed="0.009633"/>
+</kw>
+<arg>Solicitacoes de servico</arg>
+<status status="PASS" start="2026-06-18T18:27:56.814405" elapsed="0.010170"/>
+</kw>
+<kw name="E a pagina deve conter o texto">
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:27:56.835124" level="INFO">Current page contains text 'Aceitar'.</msg>
+<arg>${texto}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2026-06-18T18:27:56.825160" elapsed="0.010047"/>
+</kw>
+<arg>Aceitar</arg>
+<status status="PASS" start="2026-06-18T18:27:56.824868" elapsed="0.010425"/>
+</kw>
+<kw name="E a pagina deve conter o texto">
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:27:56.845572" level="INFO">Current page contains text 'Recusar'.</msg>
+<arg>${texto}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2026-06-18T18:27:56.835796" elapsed="0.009859"/>
+</kw>
+<arg>Recusar</arg>
+<status status="PASS" start="2026-06-18T18:27:56.835549" elapsed="0.010194"/>
+</kw>
+<kw name="E a pagina deve conter o texto">
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:27:56.855537" level="INFO">Current page contains text 'Meus pacientes'.</msg>
+<arg>${texto}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2026-06-18T18:27:56.846257" elapsed="0.009365"/>
+</kw>
+<arg>Meus pacientes</arg>
+<status status="PASS" start="2026-06-18T18:27:56.846004" elapsed="0.009704"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-06-18T18:27:56.855998" elapsed="2.119276"/>
+</kw>
+<status status="PASS" start="2026-06-18T18:27:52.339686" elapsed="6.636313"/>
+</test>
+<test id="s1-t2" name="CT02 - Deve aceitar uma solicitacao de servico" line="21">
+<kw name="Dado que o usuario faz login como profissional">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:27:58.981374" level="INFO">Opening browser 'chrome' to base url 'http://localhost:3000/login'.</msg>
+<arg>${URL_LOGIN}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-06-18T18:27:58.980592" elapsed="0.955653"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-06-18T18:27:59.936420" elapsed="0.028835"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:27:59.965669" level="INFO">Typing text 'cuidador@careonlive.com' into text field 'id=email'.</msg>
+<arg>${INPUT_EMAIL}</arg>
+<arg>cuidador@careonlive.com</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-18T18:27:59.965407" elapsed="0.117026"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:00.082856" level="INFO">Typing password into text field 'id=senha'.</msg>
+<msg time="2026-06-18T18:28:00.106756" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${INPUT_SENHA}</arg>
+<arg>senhaSegura123</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-18T18:28:00.082599" elapsed="0.059594"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:00.142582" level="INFO">Clicking button 'id=btnEntrar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-18T18:28:00.142350" elapsed="0.059431"/>
+</kw>
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>/profissional</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-06-18T18:28:00.201944" elapsed="0.040620"/>
+</kw>
+<status status="PASS" start="2026-06-18T18:27:58.979566" elapsed="1.263118"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:00.243366" level="INFO">Clicking button 'Aceitar'.</msg>
+<arg>Aceitar</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-18T18:28:00.243057" elapsed="0.061072"/>
+</kw>
+<kw name="Entao a pagina deve conter o texto">
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:00.314467" level="INFO">Current page contains text 'Aceita'.</msg>
+<arg>${texto}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2026-06-18T18:28:00.304681" elapsed="0.009869"/>
+</kw>
+<arg>Aceita</arg>
+<status status="PASS" start="2026-06-18T18:28:00.304427" elapsed="0.010338"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-06-18T18:28:00.315047" elapsed="2.108990"/>
+</kw>
+<status status="PASS" start="2026-06-18T18:27:58.977873" elapsed="3.446917"/>
+</test>
+<test id="s1-t3" name="CT03 - Deve exibir visao completa no painel admin" line="26">
+<kw name="Dado que o usuario faz login como admin">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:02.428769" level="INFO">Opening browser 'chrome' to base url 'http://localhost:3000/login'.</msg>
+<arg>${URL_LOGIN}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-06-18T18:28:02.428596" elapsed="0.970293"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-06-18T18:28:03.399108" elapsed="0.028651"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:03.428334" level="INFO">Typing text 'admin@careonlive.com' into text field 'id=email'.</msg>
+<arg>${INPUT_EMAIL}</arg>
+<arg>admin@careonlive.com</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-18T18:28:03.428074" elapsed="0.087425"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:03.515955" level="INFO">Typing password into text field 'id=senha'.</msg>
+<msg time="2026-06-18T18:28:03.542911" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${INPUT_SENHA}</arg>
+<arg>admin123</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-18T18:28:03.515654" elapsed="0.060772"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:03.576835" level="INFO">Clicking button 'id=btnEntrar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-18T18:28:03.576593" elapsed="0.062161"/>
+</kw>
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>/admin</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-06-18T18:28:03.638988" elapsed="0.040164"/>
+</kw>
+<status status="PASS" start="2026-06-18T18:28:02.428323" elapsed="1.251066"/>
+</kw>
+<kw name="Entao a pagina deve conter o texto">
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:03.694026" level="INFO">Current page contains text 'Painel do administrador'.</msg>
+<arg>${texto}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2026-06-18T18:28:03.680002" elapsed="0.014109"/>
+</kw>
+<arg>Painel do administrador</arg>
+<status status="PASS" start="2026-06-18T18:28:03.679733" elapsed="0.014467"/>
+</kw>
+<kw name="E a pagina deve conter o texto">
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:03.706757" level="INFO">Current page contains text 'Usuarios cadastrados'.</msg>
+<arg>${texto}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2026-06-18T18:28:03.694721" elapsed="0.012122"/>
+</kw>
+<arg>Usuarios cadastrados</arg>
+<status status="PASS" start="2026-06-18T18:28:03.694467" elapsed="0.012462"/>
+</kw>
+<kw name="E a pagina deve conter o texto">
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:03.717575" level="INFO">Current page contains text 'Servicos publicados'.</msg>
+<arg>${texto}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2026-06-18T18:28:03.707426" elapsed="0.010228"/>
+</kw>
+<arg>Servicos publicados</arg>
+<status status="PASS" start="2026-06-18T18:28:03.707176" elapsed="0.010560"/>
+</kw>
+<kw name="E a pagina deve conter o texto">
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:03.727679" level="INFO">Current page contains text 'Medicamentos registrados'.</msg>
+<arg>${texto}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2026-06-18T18:28:03.718209" elapsed="0.009551"/>
+</kw>
+<arg>Medicamentos registrados</arg>
+<status status="PASS" start="2026-06-18T18:28:03.717968" elapsed="0.009881"/>
+</kw>
+<kw name="E a pagina deve conter o texto">
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:03.738886" level="INFO">Current page contains text 'Alertas e ocorrencias'.</msg>
+<arg>${texto}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2026-06-18T18:28:03.728385" elapsed="0.010595"/>
+</kw>
+<arg>Alertas e ocorrencias</arg>
+<status status="PASS" start="2026-06-18T18:28:03.728120" elapsed="0.010965"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-06-18T18:28:03.739486" elapsed="2.111582"/>
+</kw>
+<status status="PASS" start="2026-06-18T18:28:02.426612" elapsed="3.425036"/>
+</test>
+<test id="s1-t4" name="CT04 - Deve gerar relatorio administrativo" line="34">
+<kw name="Dado que o usuario faz login como admin">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:05.856633" level="INFO">Opening browser 'chrome' to base url 'http://localhost:3000/login'.</msg>
+<arg>${URL_LOGIN}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-06-18T18:28:05.855813" elapsed="0.965875"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-06-18T18:28:06.821865" elapsed="0.031930"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:06.854193" level="INFO">Typing text 'admin@careonlive.com' into text field 'id=email'.</msg>
+<arg>${INPUT_EMAIL}</arg>
+<arg>admin@careonlive.com</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-18T18:28:06.853942" elapsed="0.109081"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:06.963421" level="INFO">Typing password into text field 'id=senha'.</msg>
+<msg time="2026-06-18T18:28:06.987881" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>${INPUT_SENHA}</arg>
+<arg>admin123</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-18T18:28:06.963175" elapsed="0.059672"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:07.023201" level="INFO">Clicking button 'id=btnEntrar'.</msg>
+<arg>${BOTAO_ENTRAR}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-18T18:28:07.022990" elapsed="0.063855"/>
+</kw>
+<kw name="Wait Until Location Contains" owner="SeleniumLibrary">
+<arg>/admin</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" start="2026-06-18T18:28:07.086995" elapsed="0.043354"/>
+</kw>
+<status status="PASS" start="2026-06-18T18:28:05.854777" elapsed="1.275682"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:07.131153" level="INFO">Clicking button 'Gerar relatorio'.</msg>
+<arg>Gerar relatorio</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-06-18T18:28:07.130766" elapsed="0.057753"/>
+</kw>
+<kw name="Entao a pagina deve conter o texto">
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2026-06-18T18:28:07.198845" level="INFO">Current page contains text 'Relatorio administrativo gerado para conferencia'.</msg>
+<arg>${texto}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2026-06-18T18:28:07.189136" elapsed="0.009794"/>
+</kw>
+<arg>Relatorio administrativo gerado para conferencia</arg>
+<status status="PASS" start="2026-06-18T18:28:07.188836" elapsed="0.010294"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-06-18T18:28:07.199400" elapsed="2.106356"/>
+</kw>
+<status status="PASS" start="2026-06-18T18:28:05.853264" elapsed="3.452743"/>
+</test>
+<status status="PASS" start="2026-06-18T18:27:51.971136" elapsed="17.335567"/>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Guilherme Basilio Interface" id="s1" pass="4" fail="0" skip="0">Guilherme Basilio Interface</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
