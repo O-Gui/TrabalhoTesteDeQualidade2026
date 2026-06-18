@@ -1,0 +1,287 @@
+{
+  "info": {
+    "name": "Daniel Valeriano - Testes API Cadastro e Pacientes",
+    "description": "Colecao Postman com testes de cadastro de usuario e cadastro de paciente.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "API 01 - Cadastro de Usuario",
+      "item": [
+        {
+          "name": "CT01 - Cadastro valido de familiar",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "pm.test(\"Mensagem de cadastro\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.mensagem).to.eql(\"Cadastro realizado com sucesso\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Familiar Teste\",\n  \"email\": \"familiar.teste.{{$timestamp}}@careonlive.com\",\n  \"senha\": \"senha123\",\n  \"perfil\": \"familiar\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/cadastro",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cadastro"
+              ]
+            }
+          }
+        },
+        {
+          "name": "CT02 - Bloquear email ja cadastrado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 409\", function () {",
+                  "    pm.response.to.have.status(409);",
+                  "});",
+                  "pm.test(\"Mensagem de email repetido\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.mensagem).to.eql(\"Email já cadastrado\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Admin Duplicado\",\n  \"email\": \"admin@careonlive.com\",\n  \"senha\": \"senha123\",\n  \"perfil\": \"familiar\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/cadastro",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cadastro"
+              ]
+            }
+          }
+        },
+        {
+          "name": "CT03 - Bloquear perfil administrador no cadastro publico",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Mensagem de perfil invalido\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.mensagem).to.eql(\"Perfil inválido\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Admin Publico\",\n  \"email\": \"admin.publico@careonlive.com\",\n  \"senha\": \"senha123\",\n  \"perfil\": \"administrador\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/cadastro",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cadastro"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "API 02 - Cadastro de Paciente",
+      "item": [
+        {
+          "name": "CT04 - Idade negativa",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Codigo deve ser IDADE_INVALIDA\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.codigoErro).to.eql(\"IDADE_INVALIDA\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Joao Batista\",\n  \"idade\": -5,\n  \"necessidadePrincipal\": \"Acompanhamento de medicacao\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/pacientes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pacientes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "CT05 - Idade insuficiente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Codigo deve ser IDADE_INSUFICIENTE\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.codigoErro).to.eql(\"IDADE_INSUFICIENTE\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Carlos Almeida\",\n  \"idade\": 55,\n  \"necessidadePrincipal\": \"Fisioterapia motora\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/pacientes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pacientes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "CT06 - Idade valida",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "pm.test(\"Mensagem de sucesso\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.mensagem).to.eql(\"Registrado com sucesso\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Maria de Lourdes\",\n  \"idade\": 75,\n  \"necessidadePrincipal\": \"Monitoramento continuo SOS\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/pacientes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "pacientes"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+
