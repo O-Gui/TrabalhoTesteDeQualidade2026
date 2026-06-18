@@ -1,0 +1,190 @@
+{
+  "info": {
+    "name": "Guilherme Basilio - Testes API Servicos e Admin",
+    "description": "Colecao Postman com testes de publicacao de servicos e consulta de alertas.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "API 01 - Servicos",
+      "item": [
+        {
+          "name": "CT01 - Preco abaixo do limite",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Codigo deve ser PRECO_FORA_DO_LIMITE\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.codigoErro).to.eql(\"PRECO_FORA_DO_LIMITE\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idProfissional\": \"COREN-DF-12345\",\n  \"titulo\": \"Cuidador noturno\",\n  \"precoTurno\": 49.99\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/servicos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "servicos"
+              ]
+            }
+          }
+        },
+        {
+          "name": "CT02 - Preco minimo valido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "pm.test(\"Mensagem de sucesso\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.mensagem).to.eql(\"Serviço publicado com sucesso\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idProfissional\": \"COREN-DF-12345\",\n  \"titulo\": \"Cuidador diurno\",\n  \"precoTurno\": 50.00\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/servicos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "servicos"
+              ]
+            }
+          }
+        },
+        {
+          "name": "CT03 - Preco acima do limite",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test(\"Codigo deve ser PRECO_FORA_DO_LIMITE\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.codigoErro).to.eql(\"PRECO_FORA_DO_LIMITE\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idProfissional\": \"COREN-DF-12345\",\n  \"titulo\": \"Cuidador premium\",\n  \"precoTurno\": 500.01\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/servicos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "servicos"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "API 02 - Alertas",
+      "item": [
+        {
+          "name": "CT04 - Listar alertas com contrato valido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Total deve existir\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.have.property(\"total\");",
+                  "});",
+                  "pm.test(\"Dados deve ser uma lista\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.dados).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/alertas",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "alertas"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
