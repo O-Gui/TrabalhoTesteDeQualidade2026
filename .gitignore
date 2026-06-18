@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.log
+output.xml
+log.html
+report.html
+selenium-screenshot-*.png
