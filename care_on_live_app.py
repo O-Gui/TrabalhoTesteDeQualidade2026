@@ -59,6 +59,7 @@ PROFISSIONAIS = [
         "cidade": "Brasilia - DF",
         "avaliacao": 4.9,
         "precoTurno": 180.0,
+        "email": "ana.ribeiro@careonlive.example",
         "resumo": "Experiencia com rotina noturna, medicacao e acompanhamento de idosos com risco alto.",
     },
     {
@@ -72,6 +73,7 @@ PROFISSIONAIS = [
         "cidade": "Aguas Claras - DF",
         "avaliacao": 4.7,
         "precoTurno": 220.0,
+        "email": "bruno.costa@careonlive.example",
         "resumo": "Tecnico de enfermagem para controle de sinais vitais, glicemia e pressao.",
     },
     {
@@ -85,6 +87,7 @@ PROFISSIONAIS = [
         "cidade": "Taguatinga - DF",
         "avaliacao": 4.8,
         "precoTurno": 160.0,
+        "email": "camila.nascimento@careonlive.example",
         "resumo": "Atendimento domiciliar com foco em mobilidade, fisioterapia e prevencao de quedas.",
     },
     {
@@ -98,6 +101,7 @@ PROFISSIONAIS = [
         "cidade": "Guara - DF",
         "avaliacao": 4.6,
         "precoTurno": 250.0,
+        "email": "diego.rocha@careonlive.example",
         "resumo": "Enfermagem domiciliar para pos-cirurgico e acompanhamento intensivo.",
     },
 ]
@@ -433,7 +437,7 @@ def pagina_base(titulo: str, conteudo: str) -> str:
                 min-height: 92px;
                 resize: vertical;
             }}
-            button {{
+            button, .button-link {{
                 min-height: 42px;
                 border: 0;
                 border-radius: 8px;
@@ -442,8 +446,12 @@ def pagina_base(titulo: str, conteudo: str) -> str:
                 color: #fff;
                 font-weight: 700;
                 cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
             }}
-            button:hover {{
+            button:hover, .button-link:hover {{
                 background: var(--primary-dark);
             }}
             button.secondary {{
@@ -611,7 +619,6 @@ def pagina_base(titulo: str, conteudo: str) -> str:
                     <a href="/profissionais">Profissionais disponiveis</a>
                     <a href="/login">Login</a>
                     <a href="/pacientes/rotina/medicamento">Medicamentos</a>
-                    <a href="/docs">API</a>
                 </nav>
             </div>
         </header>
@@ -1065,7 +1072,7 @@ def tela_profissionais_disponiveis():
                 <div class="price">R$ {item['precoTurno']:.2f} por turno</div>
                 <p class="muted">{item['turno']} • {item['status']}</p>
             </div>
-            <button onclick="selecionarProfissional('{item['nome']}', '{item['especialidade']}')">Selecionar profissional</button>
+            <a class="button-link" href="mailto:{item['email']}?subject=Interesse%20em%20atendimento%20Care%20on%20Live">Selecionar profissional</a>
         </article>
         """
         for item in PROFISSIONAIS
@@ -1074,19 +1081,10 @@ def tela_profissionais_disponiveis():
     <section class="panel">
         <h1 class="section-title">Profissionais disponiveis</h1>
         <p class="muted">Escolha um cuidador, enfermeiro ou fisioterapeuta para simular a contratacao do cuidado domiciliar.</p>
-        <p id="profissionalSelecionado" class="message" aria-live="polite"></p>
     </section>
     <section class="marketplace" style="margin-top:16px">
         {cards}
     </section>
-    <script>
-        function selecionarProfissional(nome, especialidade) {{
-            const mensagem = document.getElementById('profissionalSelecionado');
-            mensagem.className = 'message success';
-            mensagem.innerText = 'Profissional selecionado: ' + nome + ' (' + especialidade + ')';
-            window.scrollTo({{ top: 0, behavior: 'smooth' }});
-        }}
-    </script>
     """
     return pagina_base("Profissionais disponiveis", conteudo)
 
@@ -1294,10 +1292,10 @@ def tela_login():
             <h1 class="section-title">Login Care on Live</h1>
             <form onsubmit="validarLogin(); return false;">
                 <label>Email
-                    <input type="text" id="email" placeholder="seu-email@exemplo.com" autocomplete="username" />
+                    <input type="text" id="email" autocomplete="username" />
                 </label>
                 <label>Senha
-                    <input type="password" id="senha" placeholder="Digite sua senha" autocomplete="current-password" />
+                    <input type="password" id="senha" autocomplete="current-password" />
                 </label>
                 <button id="btnEntrar" type="button" onclick="validarLogin()">Entrar</button>
                 <div id="toast-mensagem" class="message" aria-live="polite"></div>

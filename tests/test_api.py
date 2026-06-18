@@ -46,6 +46,8 @@ def test_login_nao_expoe_credenciais_na_tela():
     assert resposta.status_code == 200
     assert "Perfis separados" not in resposta.text
     assert "PDF local" not in resposta.text
+    assert "seu-email@exemplo.com" not in resposta.text
+    assert "Digite sua senha" not in resposta.text
     for email, usuario in USUARIOS.items():
         assert email not in resposta.text
         assert usuario["senha"] not in resposta.text
@@ -68,6 +70,8 @@ def test_menu_publico_nao_expoe_paineis_de_perfil():
     assert 'href="/familiar"' not in resposta.text
     assert 'href="/profissional"' not in resposta.text
     assert 'href="/profissionais"' in resposta.text
+    assert 'href="/docs"' not in resposta.text
+    assert ">API<" not in resposta.text
 
 
 def test_api_profissionais_populada():
@@ -85,6 +89,7 @@ def test_marketplace_profissionais():
     assert "Profissionais disponiveis" in resposta.text
     assert "Marketplace" not in resposta.text
     assert "Selecionar profissional" in resposta.text
+    assert "mailto:" in resposta.text
 
 
 def test_pdf_acessos_sem_404():

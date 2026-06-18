@@ -99,8 +99,8 @@ def generate_site() -> None:
   <article class="panel login-panel">
     <h2>Login Care on Live</h2>
     <form onsubmit="loginDemo(); return false;">
-      <label>Email<input type="text" placeholder="seu-email@exemplo.com" /></label>
-      <label>Senha<input type="password" placeholder="Digite sua senha" /></label>
+      <label>Email<input type="text" /></label>
+      <label>Senha<input type="password" /></label>
       <button type="submit">Entrar</button>
       <p id="mensagemLogin" class="message"></p>
     </form>
@@ -109,7 +109,7 @@ def generate_site() -> None:
 </section>
 <script>
 function loginDemo() {
-  document.getElementById('mensagemLogin').innerText = 'Login demonstrativo. Consulte o PDF de acessos e use o app local.';
+  document.getElementById('mensagemLogin').innerText = 'Login demonstrativo. Use o aplicativo local para autenticar os perfis.';
 }
 </script>""",
         ),
@@ -142,7 +142,6 @@ function loginDemo() {
             f"""<section class="hero">
   <h1>Profissionais disponiveis</h1>
   <p>Escolha um profissional ficticio para simular a contratacao do cuidado domiciliar.</p>
-  <p id="selecionado" class="message"></p>
 </section>
 <section class="marketplace">
   {''.join(f'''<article class="card professional-card">
@@ -150,15 +149,10 @@ function loginDemo() {
     <div><h2>{escape(p["nome"])}</h2><p>{escape(p["especialidade"])} - {escape(p["cidade"])}</p></div>
     <p>{escape(p["resumo"])}</p>
     <div><div class="rating">Nota {p["avaliacao"]:.1f}/5</div><div class="price">R$ {p["precoTurno"]:.2f} por turno</div><p>{escape(p["turno"])} - {escape(p["status"])}</p></div>
-    <button class="button" onclick="selecionar('{escape(p["nome"])}')">Selecionar</button>
+    <a class="button" href="mailto:{escape(p["email"])}?subject=Interesse%20em%20atendimento%20Care%20on%20Live">Selecionar profissional</a>
   </article>''' for p in PROFISSIONAIS)}
 </section>
-<script>
-function selecionar(nome) {{
-  document.getElementById('selecionado').innerText = 'Profissional selecionado: ' + nome;
-  window.scrollTo({{ top: 0, behavior: 'smooth' }});
-}}
-</script>""",
+""",
         ),
     )
 
@@ -218,7 +212,6 @@ function selecionar(nome) {{
   <a href="{PAGES_URL}">GitHub Pages - inicio</a>
   <a href="{PAGES_URL}profissionais.html">Profissionais disponiveis</a>
   <a href="{PAGES_URL}medicamentos.html">Medicamentos</a>
-  <a href="{PAGES_URL}acessos-care-on-live.pdf">PDF de acessos</a>
   <a href="https://github.com/O-Gui/TrabalhoTesteDeQualidade2026">Repositorio GitHub</a>
   <a href="https://github.com/O-Gui/TrabalhoTesteDeQualidade2026/wiki">Wiki do projeto</a>
 </section>""",
