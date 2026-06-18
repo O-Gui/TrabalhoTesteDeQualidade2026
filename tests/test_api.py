@@ -51,6 +51,14 @@ def test_login_nao_expoe_credenciais_na_tela():
         assert usuario["senha"] not in resposta.text
 
 
+def test_home_abre_tela_de_login():
+    resposta = client.get("/")
+
+    assert resposta.status_code == 200
+    assert "Login Care on Live" in resposta.text
+    assert "CL+" in resposta.text
+
+
 def test_menu_publico_nao_expoe_paineis_de_perfil():
     resposta = client.get("/login")
 
@@ -74,7 +82,8 @@ def test_marketplace_profissionais():
     resposta = client.get("/profissionais")
 
     assert resposta.status_code == 200
-    assert "Marketplace de profissionais" in resposta.text
+    assert "Profissionais disponiveis" in resposta.text
+    assert "Marketplace" not in resposta.text
     assert "Selecionar profissional" in resposta.text
 
 

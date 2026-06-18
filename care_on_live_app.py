@@ -529,6 +529,37 @@ def pagina_base(titulo: str, conteudo: str) -> str:
                 font-size: 18px;
                 font-weight: 700;
             }}
+            .login-layout {{
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) minmax(320px, 430px);
+                gap: 28px;
+                align-items: center;
+                min-height: calc(100vh - 150px);
+            }}
+            .login-intro {{
+                display: grid;
+                gap: 18px;
+                align-content: center;
+            }}
+            .logo-large {{
+                width: 104px;
+                height: 104px;
+                border-radius: 18px;
+                background: var(--primary);
+                color: #fff;
+                display: grid;
+                place-items: center;
+                font-size: 34px;
+                font-weight: 800;
+            }}
+            .login-intro h1 {{
+                margin: 0;
+                font-size: 38px;
+            }}
+            .login-panel {{
+                justify-self: end;
+                width: 100%;
+            }}
             .toolbar {{
                 display: flex;
                 gap: 10px;
@@ -550,6 +581,13 @@ def pagina_base(titulo: str, conteudo: str) -> str:
                 .marketplace {{
                     grid-template-columns: 1fr;
                 }}
+                .login-layout {{
+                    grid-template-columns: 1fr;
+                    min-height: auto;
+                }}
+                .login-panel {{
+                    justify-self: stretch;
+                }}
                 table {{
                     display: block;
                     overflow-x: auto;
@@ -570,7 +608,7 @@ def pagina_base(titulo: str, conteudo: str) -> str:
                 </a>
                 <nav aria-label="Navegacao principal">
                     <a href="/">Home</a>
-                    <a href="/profissionais">Marketplace</a>
+                    <a href="/profissionais">Profissionais disponiveis</a>
                     <a href="/login">Login</a>
                     <a href="/pacientes/rotina/medicamento">Medicamentos</a>
                     <a href="/docs">API</a>
@@ -787,7 +825,7 @@ def acionar_sos(sos: Sos, response: Response):
     }
 
 
-@app.get("/", response_class=HTMLResponse)
+@app.get("/painel", response_class=HTMLResponse)
 def painel():
     linhas_medicamentos = "".join(
         f"""
@@ -1011,8 +1049,8 @@ def tela_admin():
 
 
 @app.get("/profissionais", response_class=HTMLResponse)
-@app.get("/marketplace", response_class=HTMLResponse)
-def tela_marketplace_profissionais():
+@app.get("/profissionais-disponiveis", response_class=HTMLResponse)
+def tela_profissionais_disponiveis():
     cards = "".join(
         f"""
         <article class="card professional-card">
@@ -1034,7 +1072,7 @@ def tela_marketplace_profissionais():
     )
     conteudo = f"""
     <section class="panel">
-        <h1 class="section-title">Marketplace de profissionais</h1>
+        <h1 class="section-title">Profissionais disponiveis</h1>
         <p class="muted">Escolha um cuidador, enfermeiro ou fisioterapeuta para simular a contratacao do cuidado domiciliar.</p>
         <p id="profissionalSelecionado" class="message" aria-live="polite"></p>
     </section>
@@ -1050,7 +1088,7 @@ def tela_marketplace_profissionais():
         }}
     </script>
     """
-    return pagina_base("Marketplace", conteudo)
+    return pagina_base("Profissionais disponiveis", conteudo)
 
 
 @app.get("/profissional", response_class=HTMLResponse)
@@ -1236,10 +1274,23 @@ def tela_familiar():
     return pagina_base("Familiar", conteudo)
 
 
+@app.get("/", response_class=HTMLResponse)
 @app.get("/login", response_class=HTMLResponse)
 def tela_login():
     conteudo = f"""
-    <section class="panel">
+    <section class="login-layout">
+        <div class="login-intro">
+            <div class="logo-large">CL+</div>
+            <div>
+                <h1>Care on Live</h1>
+                <p class="muted">Gestao de cuidado domiciliar com pacientes, profissionais, medicamentos e alertas.</p>
+            </div>
+            <div class="toolbar">
+                <a href="/profissionais"><button>Ver profissionais disponiveis</button></a>
+                <a href="/pacientes/rotina/medicamento"><button class="secondary">Medicamentos</button></a>
+            </div>
+        </div>
+        <article class="panel login-panel">
             <h1 class="section-title">Login Care on Live</h1>
             <form onsubmit="validarLogin(); return false;">
                 <label>Email
@@ -1252,7 +1303,8 @@ def tela_login():
                 <div id="toast-mensagem" class="message" aria-live="polite"></div>
                 <div id="atalho-dashboard" class="message"></div>
             </form>
-            <p class="muted" style="margin-top:16px">Quer contratar alguem? <a href="/profissionais">Ver marketplace de profissionais</a></p>
+            <p class="muted" style="margin-top:16px">Quer contratar alguem? <a href="/profissionais">Ver profissionais disponiveis</a></p>
+        </article>
     </section>
     <script>
         async function validarLogin() {{

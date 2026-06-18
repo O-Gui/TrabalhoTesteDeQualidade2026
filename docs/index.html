@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Inicio - Care on Live</title>
+  <title>Login - Care on Live</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -14,42 +14,37 @@
     </a>
     <nav>
       <a href="index.html">Home</a>
-      <a href="profissionais.html">Marketplace</a>
+      <a href="profissionais.html">Profissionais disponiveis</a>
       <a href="medicamentos.html">Medicamentos</a>
       <a href="links.html">Links</a>
     </nav>
   </header>
   <main>
-    <section class="hero">
-  <h1>Care on Live</h1>
-  <p>Versao estatica para GitHub Pages com marketplace de profissionais, pacientes demonstrativos e links separados por area.</p>
-  <a class="button" href="profissionais.html">Abrir marketplace</a>
+    <section class="login-layout">
+  <div class="login-intro">
+    <div class="logo-large">CL+</div>
+    <div>
+      <h1>Care on Live</h1>
+      <p>Gestao de cuidado domiciliar com pacientes, profissionais, medicamentos e alertas.</p>
+    </div>
+    <a class="button" href="profissionais.html">Ver profissionais disponiveis</a>
+  </div>
+  <article class="panel login-panel">
+    <h2>Login Care on Live</h2>
+    <form onsubmit="loginDemo(); return false;">
+      <label>Email<input type="text" placeholder="seu-email@exemplo.com" /></label>
+      <label>Senha<input type="password" placeholder="Digite sua senha" /></label>
+      <button type="submit">Entrar</button>
+      <p id="mensagemLogin" class="message"></p>
+    </form>
+    <p>Use o app local para autenticar perfis. Esta pagina publica e uma demonstracao visual.</p>
+  </article>
 </section>
-<section class="grid"><article class="card">
-  <h2>Marketplace</h2>
-  <p>Escolha entre cuidadores, enfermeiros e fisioterapeutas ficticios.</p>
-  <a class="button" href="profissionais.html">Abrir</a>
-</article>
-<article class="card">
-  <h2>Medicamentos</h2>
-  <p>Rotinas ficticias de medicacao.</p>
-  <a class="button" href="medicamentos.html">Abrir</a>
-</article>
-<article class="card">
-  <h2>Links separados</h2>
-  <p>Todos os links principais da entrega.</p>
-  <a class="button" href="links.html">Abrir</a>
-</article>
-<article class="card">
-  <h2>Repositorio</h2>
-  <p>Codigo-fonte e documentacao tecnica do projeto.</p>
-  <a class="button" href="https://github.com/O-Gui/TrabalhoTesteDeQualidade2026">Abrir</a>
-</article>
-<article class="card">
-  <h2>Wiki</h2>
-  <p>Plano de qualidade e documentos da atividade.</p>
-  <a class="button" href="https://github.com/O-Gui/TrabalhoTesteDeQualidade2026/wiki">Abrir</a>
-</article></section>
+<script>
+function loginDemo() {
+  document.getElementById('mensagemLogin').innerText = 'Login demonstrativo. Consulte o PDF de acessos e use o app local.';
+}
+</script>
   </main>
 </body>
 </html>
