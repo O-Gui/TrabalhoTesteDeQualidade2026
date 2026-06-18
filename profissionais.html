@@ -23,7 +23,6 @@
     <section class="hero">
   <h1>Profissionais disponiveis</h1>
   <p>Escolha um profissional ficticio para simular a contratacao do cuidado domiciliar.</p>
-  <p id="selecionado" class="message"></p>
 </section>
 <section class="marketplace">
   <article class="card professional-card">
@@ -31,33 +30,28 @@
     <div><h2>Ana Paula Ribeiro</h2><p>Cuidadora de idosos - Brasilia - DF</p></div>
     <p>Experiencia com rotina noturna, medicacao e acompanhamento de idosos com risco alto.</p>
     <div><div class="rating">Nota 4.9/5</div><div class="price">R$ 180.00 por turno</div><p>Noturno - Disponivel</p></div>
-    <button class="button" onclick="selecionar('Ana Paula Ribeiro')">Selecionar</button>
+    <a class="button" href="mailto:ana.ribeiro@careonlive.example?subject=Interesse%20em%20atendimento%20Care%20on%20Live">Selecionar profissional</a>
   </article><article class="card professional-card">
     <div class="avatar">B</div>
     <div><h2>Bruno Almeida Costa</h2><p>Tecnico de enfermagem - Aguas Claras - DF</p></div>
     <p>Tecnico de enfermagem para controle de sinais vitais, glicemia e pressao.</p>
     <div><div class="rating">Nota 4.7/5</div><div class="price">R$ 220.00 por turno</div><p>Diurno - Em atendimento</p></div>
-    <button class="button" onclick="selecionar('Bruno Almeida Costa')">Selecionar</button>
+    <a class="button" href="mailto:bruno.costa@careonlive.example?subject=Interesse%20em%20atendimento%20Care%20on%20Live">Selecionar profissional</a>
   </article><article class="card professional-card">
     <div class="avatar">C</div>
     <div><h2>Camila Nascimento</h2><p>Fisioterapia motora - Taguatinga - DF</p></div>
     <p>Atendimento domiciliar com foco em mobilidade, fisioterapia e prevencao de quedas.</p>
     <div><div class="rating">Nota 4.8/5</div><div class="price">R$ 160.00 por turno</div><p>Vespertino - Disponivel</p></div>
-    <button class="button" onclick="selecionar('Camila Nascimento')">Selecionar</button>
+    <a class="button" href="mailto:camila.nascimento@careonlive.example?subject=Interesse%20em%20atendimento%20Care%20on%20Live">Selecionar profissional</a>
   </article><article class="card professional-card">
     <div class="avatar">D</div>
     <div><h2>Diego Martins Rocha</h2><p>Enfermagem domiciliar - Guara - DF</p></div>
     <p>Enfermagem domiciliar para pos-cirurgico e acompanhamento intensivo.</p>
     <div><div class="rating">Nota 4.6/5</div><div class="price">R$ 250.00 por turno</div><p>Plantonista - Indisponivel</p></div>
-    <button class="button" onclick="selecionar('Diego Martins Rocha')">Selecionar</button>
+    <a class="button" href="mailto:diego.rocha@careonlive.example?subject=Interesse%20em%20atendimento%20Care%20on%20Live">Selecionar profissional</a>
   </article>
 </section>
-<script>
-function selecionar(nome) {
-  document.getElementById('selecionado').innerText = 'Profissional selecionado: ' + nome;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-</script>
+
   </main>
 </body>
 </html>

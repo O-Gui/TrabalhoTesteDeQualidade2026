@@ -32,8 +32,8 @@
   <article class="panel login-panel">
     <h2>Login Care on Live</h2>
     <form onsubmit="loginDemo(); return false;">
-      <label>Email<input type="text" placeholder="seu-email@exemplo.com" /></label>
-      <label>Senha<input type="password" placeholder="Digite sua senha" /></label>
+      <label>Email<input type="text" /></label>
+      <label>Senha<input type="password" /></label>
       <button type="submit">Entrar</button>
       <p id="mensagemLogin" class="message"></p>
     </form>
@@ -42,7 +42,7 @@
 </section>
 <script>
 function loginDemo() {
-  document.getElementById('mensagemLogin').innerText = 'Login demonstrativo. Consulte o PDF de acessos e use o app local.';
+  document.getElementById('mensagemLogin').innerText = 'Login demonstrativo. Use o aplicativo local para autenticar os perfis.';
 }
 </script>
   </main>
