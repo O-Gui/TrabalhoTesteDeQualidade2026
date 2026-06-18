@@ -43,6 +43,15 @@ URL esperada depois de ativar o Pages:
 
 https://o-gui.github.io/TrabalhoTesteDeQualidade2026/
 
+Para ativar no GitHub:
+
+1. Abra `Settings` > `Pages` no repositorio.
+2. Opcao simples: em `Build and deployment`, escolha `Deploy from a branch`.
+3. Selecione a branch `gh-pages` e a pasta `/root`.
+4. Salve e aguarde alguns minutos.
+
+Alternativa: escolha `GitHub Actions` como fonte e reexecute o workflow `Deploy GitHub Pages`.
+
 Links separados:
 
 - Inicio: https://o-gui.github.io/TrabalhoTesteDeQualidade2026/
