@@ -40,25 +40,105 @@ def test_login_por_perfil():
         assert resposta.json()["usuario"]["dashboard"] == dashboard
 
 
-def test_login_nao_expoe_credenciais_na_tela():
+def test_login_mostra_acessos_de_demonstracao():
     resposta = client.get("/login")
 
     assert resposta.status_code == 200
-    assert "Perfis separados" not in resposta.text
-    assert "PDF local" not in resposta.text
-    assert "seu-email@exemplo.com" not in resposta.text
-    assert "Digite sua senha" not in resposta.text
-    for email, usuario in USUARIOS.items():
-        assert email not in resposta.text
-        assert usuario["senha"] not in resposta.text
+    assert "Acessos de demonstracao" in resposta.text
+    assert "admin@careonlive.com" in resposta.text
+    assert "admin123" in resposta.text
+    assert "cuidador@careonlive.com" in resposta.text
+    assert "senhaSegura123" in resposta.text
+    assert "paciente@careonlive.com" in resposta.text
+    assert "paciente123" in resposta.text
+    assert "familiar@careonlive.com" in resposta.text
+    assert "familiar123" in resposta.text
+    assert "Criar cadastro" in resposta.text
 
 
-def test_home_abre_tela_de_login():
+def test_home_abre_tela_inicial():
     resposta = client.get("/")
+
+    assert resposta.status_code == 200
+    assert "Plataforma para conectar pacientes" in resposta.text
+    assert "Como funciona" in resposta.text
+    assert "Login Care on Live" not in resposta.text
+
+
+def test_login_abre_tela_de_login():
+    resposta = client.get("/login")
 
     assert resposta.status_code == 200
     assert "Login Care on Live" in resposta.text
     assert "CL+" in resposta.text
+
+
+def test_pagina_cadastro_disponivel():
+    resposta = client.get("/cadastro")
+
+    assert resposta.status_code == 200
+    assert "Cadastro Care on Live" in resposta.text
+    assert 'id="nomeCadastro"' in resposta.text
+    assert 'id="emailCadastro"' in resposta.text
+    assert 'id="senhaCadastro"' in resposta.text
+    assert "Selecione o tipo de usuario" in resposta.text
+    assert '<option value="paciente">Paciente</option>' in resposta.text
+    assert '<option value="familiar">Familiar</option>' in resposta.text
+    assert '<option value="profissional">Profissional</option>' in resposta.text
+
+
+def test_cadastro_usuario_sucesso_e_login():
+    email = "novo.familiar@careonlive.com"
+    USUARIOS.pop(email, None)
+
+    resposta = client.post(
+        "/api/cadastro",
+        json={
+            "nome": "Novo Familiar",
+            "email": email,
+            "senha": "senha123",
+            "perfil": "familiar",
+        },
+    )
+
+    assert resposta.status_code == 201
+    assert resposta.json()["mensagem"] == "Cadastro realizado com sucesso"
+    assert resposta.json()["usuario"]["dashboard"] == "/familiar"
+
+    login = client.post("/api/login", json={"email": email, "senha": "senha123"})
+
+    assert login.status_code == 200
+    assert login.json()["usuario"]["perfil"] == "familiar"
+
+
+def test_cadastro_usuario_email_repetido():
+    resposta = client.post(
+        "/api/cadastro",
+        json={
+            "nome": "Administrador Duplicado",
+            "email": "admin@careonlive.com",
+            "senha": "senha123",
+            "perfil": "administrador",
+        },
+    )
+
+    assert resposta.status_code == 409
+    assert resposta.json()["mensagem"] == "Email j\u00e1 cadastrado"
+
+
+def test_cadastro_publico_nao_permite_administrador():
+    resposta = client.post(
+        "/api/cadastro",
+        json={
+            "nome": "Admin Publico",
+            "email": "admin.publico@careonlive.com",
+            "senha": "senha123",
+            "perfil": "administrador",
+        },
+    )
+
+    assert resposta.status_code == 400
+    assert resposta.json()["mensagem"] == "Perfil inv\u00e1lido"
 
 
 def test_menu_publico_nao_expoe_paineis_de_perfil():
@@ -179,3 +259,77 @@ def test_paginas_por_perfil():
 
         assert resposta.status_code == 200
         assert texto in resposta.text
+
+
+def test_painel_profissional_tem_funcionalidades_proprias():
+    resposta = client.get("/profissional")
+
+    assert resposta.status_code == 200
+    assert "Registrar sinais vitais" in resposta.text
+    assert "Registro de evolucao" in resposta.text
+    assert "Solicitacoes de servico" in resposta.text
+    assert "Aceitar" in resposta.text
+    assert "Recusar" in resposta.text
+    assert "Meus pacientes" in resposta.text
+    assert "Passar remedio para paciente" in resposta.text
+    assert "Conversa com paciente" in resposta.text
+    assert "Mensagem para familia" in resposta.text
+
+
+def test_painel_admin_tem_visao_completa_do_sistema():
+    resposta = client.get("/admin")
+
+    assert resposta.status_code == 200
+    assert "Visualizacao completa do sistema" in resposta.text
+    assert "Usuarios cadastrados" in resposta.text
+    assert "Profissionais cadastrados" in resposta.text
+    assert "Pacientes demonstrativos" in resposta.text
+    assert "Servicos publicados" in resposta.text
+    assert "Medicamentos registrados" in resposta.text
+    assert "Alertas e ocorrencias" in resposta.text
+    assert "Gerar relatorio" in resposta.text
+
+
+def test_painel_paciente_tem_funcionalidades_proprias():
+    resposta = client.get("/paciente")
+
+    assert resposta.status_code == 200
+    assert "Pedir ajuda" in resposta.text
+    assert "Estou bem" in resposta.text
+    assert "Chamar cuidador" in resposta.text
+    assert "Dados do usuario" in resposta.text
+    assert "Dados de cuidado" in resposta.text
+    assert "Contatos de apoio" in resposta.text
+    assert "Meus medicamentos" in resposta.text
+    assert "Tomou?" in resposta.text
+    assert "Hora da tomada" in resposta.text
+    assert "Mensagem para o cuidador" in resposta.text
+    assert "Mensagem para familia" in resposta.text
+    assert "Historico rapido" in resposta.text
+
+
+def test_painel_familiar_tem_funcionalidades_proprias():
+    resposta = client.get("/familiar")
+
+    assert resposta.status_code == 200
+    assert "Falar com profissional" in resposta.text
+    assert "Autorizar atendimento" in resposta.text
+    assert "Mensagem para a equipe" in resposta.text
+    assert "Dados do usuario" in resposta.text
+    assert "Familiares vinculados" in resposta.text
+    assert "Medicamentos registrados do paciente" in resposta.text
+    assert "Tomou?" in resposta.text
+    assert "Hora registrada" in resposta.text
+    assert "Registrar tomada" in resposta.text
+    assert "Hora da tomada" in resposta.text
+
+
+def test_pagina_medicamentos_mostra_registro_de_tomada():
+    resposta = client.get("/pacientes/rotina/medicamento")
+
+    assert resposta.status_code == 200
+    assert "Medicamentos registrados do paciente" in resposta.text
+    assert "Tomou?" in resposta.text
+    assert "Hora registrada" in resposta.text
+    assert "Registrar tomada" in resposta.text
+    assert "Hora da tomada" in resposta.text

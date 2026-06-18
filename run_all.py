@@ -35,8 +35,11 @@ def main() -> int:
     try:
         while any(processo.poll() is None for processo in processos):
             for processo in processos:
-                processo.wait(timeout=1)
-    except (KeyboardInterrupt, subprocess.TimeoutExpired):
+                try:
+                    processo.wait(timeout=1)
+                except subprocess.TimeoutExpired:
+                    pass
+    except KeyboardInterrupt:
         encerrar()
 
     return 0
