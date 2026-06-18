@@ -56,6 +56,10 @@ PROFISSIONAIS = [
         "turno": "Noturno",
         "status": "Disponivel",
         "pacientesAtendidos": 3,
+        "cidade": "Brasilia - DF",
+        "avaliacao": 4.9,
+        "precoTurno": 180.0,
+        "resumo": "Experiencia com rotina noturna, medicacao e acompanhamento de idosos com risco alto.",
     },
     {
         "idProfissional": "prof002",
@@ -65,6 +69,10 @@ PROFISSIONAIS = [
         "turno": "Diurno",
         "status": "Em atendimento",
         "pacientesAtendidos": 2,
+        "cidade": "Aguas Claras - DF",
+        "avaliacao": 4.7,
+        "precoTurno": 220.0,
+        "resumo": "Tecnico de enfermagem para controle de sinais vitais, glicemia e pressao.",
     },
     {
         "idProfissional": "prof003",
@@ -74,6 +82,10 @@ PROFISSIONAIS = [
         "turno": "Vespertino",
         "status": "Disponivel",
         "pacientesAtendidos": 4,
+        "cidade": "Taguatinga - DF",
+        "avaliacao": 4.8,
+        "precoTurno": 160.0,
+        "resumo": "Atendimento domiciliar com foco em mobilidade, fisioterapia e prevencao de quedas.",
     },
     {
         "idProfissional": "prof004",
@@ -83,6 +95,10 @@ PROFISSIONAIS = [
         "turno": "Plantonista",
         "status": "Indisponivel",
         "pacientesAtendidos": 1,
+        "cidade": "Guara - DF",
+        "avaliacao": 4.6,
+        "precoTurno": 250.0,
+        "resumo": "Enfermagem domiciliar para pos-cirurgico e acompanhamento intensivo.",
     },
 ]
 
@@ -483,6 +499,36 @@ def pagina_base(titulo: str, conteudo: str) -> str:
                 background: #fff5d8;
                 color: var(--warning);
             }}
+            .marketplace {{
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 16px;
+            }}
+            .professional-card {{
+                display: grid;
+                gap: 12px;
+                min-height: 280px;
+            }}
+            .avatar {{
+                width: 56px;
+                height: 56px;
+                border-radius: 8px;
+                display: grid;
+                place-items: center;
+                background: var(--surface-soft);
+                color: var(--primary-dark);
+                font-size: 20px;
+                font-weight: 700;
+            }}
+            .rating {{
+                color: var(--warning);
+                font-weight: 700;
+            }}
+            .price {{
+                color: var(--primary-dark);
+                font-size: 18px;
+                font-weight: 700;
+            }}
             .toolbar {{
                 display: flex;
                 gap: 10px;
@@ -499,6 +545,9 @@ def pagina_base(titulo: str, conteudo: str) -> str:
                     justify-content: flex-start;
                 }}
                 .grid-2, .grid-3 {{
+                    grid-template-columns: 1fr;
+                }}
+                .marketplace {{
                     grid-template-columns: 1fr;
                 }}
                 table {{
@@ -520,11 +569,8 @@ def pagina_base(titulo: str, conteudo: str) -> str:
                     </span>
                 </a>
                 <nav aria-label="Navegacao principal">
-                    <a href="/">Painel</a>
-                    <a href="/admin">Admin</a>
-                    <a href="/profissional">Profissional</a>
-                    <a href="/paciente">Paciente</a>
-                    <a href="/familiar">Familiar</a>
+                    <a href="/">Home</a>
+                    <a href="/profissionais">Marketplace</a>
                     <a href="/login">Login</a>
                     <a href="/pacientes/rotina/medicamento">Medicamentos</a>
                     <a href="/docs">API</a>
@@ -542,6 +588,7 @@ def health():
     return {"status": "online", "servico": "Care on Live", "timestamp": agora_iso()}
 
 
+@app.get("/acessos-care-on-live.pdf")
 @app.get("/static/acessos-care-on-live.pdf")
 def pdf_acessos():
     caminho_pdf = BASE_DIR / "docs" / "acessos-care-on-live.pdf"
@@ -963,8 +1010,50 @@ def tela_admin():
     return pagina_base("Admin", conteudo)
 
 
-@app.get("/profissional", response_class=HTMLResponse)
 @app.get("/profissionais", response_class=HTMLResponse)
+@app.get("/marketplace", response_class=HTMLResponse)
+def tela_marketplace_profissionais():
+    cards = "".join(
+        f"""
+        <article class="card professional-card">
+            <div class="avatar">{item['nome'][0]}</div>
+            <div>
+                <h2 class="section-title">{item['nome']}</h2>
+                <p class="muted">{item['especialidade']} • {item['cidade']}</p>
+            </div>
+            <p>{item['resumo']}</p>
+            <div>
+                <div class="rating">Nota {item['avaliacao']:.1f}/5</div>
+                <div class="price">R$ {item['precoTurno']:.2f} por turno</div>
+                <p class="muted">{item['turno']} • {item['status']}</p>
+            </div>
+            <button onclick="selecionarProfissional('{item['nome']}', '{item['especialidade']}')">Selecionar profissional</button>
+        </article>
+        """
+        for item in PROFISSIONAIS
+    )
+    conteudo = f"""
+    <section class="panel">
+        <h1 class="section-title">Marketplace de profissionais</h1>
+        <p class="muted">Escolha um cuidador, enfermeiro ou fisioterapeuta para simular a contratacao do cuidado domiciliar.</p>
+        <p id="profissionalSelecionado" class="message" aria-live="polite"></p>
+    </section>
+    <section class="marketplace" style="margin-top:16px">
+        {cards}
+    </section>
+    <script>
+        function selecionarProfissional(nome, especialidade) {{
+            const mensagem = document.getElementById('profissionalSelecionado');
+            mensagem.className = 'message success';
+            mensagem.innerText = 'Profissional selecionado: ' + nome + ' (' + especialidade + ')';
+            window.scrollTo({{ top: 0, behavior: 'smooth' }});
+        }}
+    </script>
+    """
+    return pagina_base("Marketplace", conteudo)
+
+
+@app.get("/profissional", response_class=HTMLResponse)
 def tela_profissional():
     linhas_pacientes = "".join(
         f"""
@@ -1150,8 +1239,7 @@ def tela_familiar():
 @app.get("/login", response_class=HTMLResponse)
 def tela_login():
     conteudo = f"""
-    <section class="grid grid-2">
-        <article class="panel">
+    <section class="panel">
             <h1 class="section-title">Login Care on Live</h1>
             <form onsubmit="validarLogin(); return false;">
                 <label>Email
@@ -1164,26 +1252,7 @@ def tela_login():
                 <div id="toast-mensagem" class="message" aria-live="polite"></div>
                 <div id="atalho-dashboard" class="message"></div>
             </form>
-        </article>
-        <article class="panel">
-            <h2 class="section-title">Perfis separados</h2>
-            <p class="muted">Os acessos de demonstracao foram separados em PDF. A tela publica mostra apenas os tipos de perfil e os links de navegacao.</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Perfil</th>
-                        <th>Tela</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>Administrador</td><td><a href="/admin">/admin</a></td></tr>
-                    <tr><td>Profissional/cuidador</td><td><a href="/profissional">/profissional</a></td></tr>
-                    <tr><td>Paciente</td><td><a href="/paciente">/paciente</a></td></tr>
-                    <tr><td>Familiar/responsavel</td><td><a href="/familiar">/familiar</a></td></tr>
-                </tbody>
-            </table>
-            <p class="muted">PDF local: <a href="/static/acessos-care-on-live.pdf">acessos-care-on-live.pdf</a></p>
-        </article>
+            <p class="muted" style="margin-top:16px">Quer contratar alguem? <a href="/profissionais">Ver marketplace de profissionais</a></p>
     </section>
     <script>
         async function validarLogin() {{

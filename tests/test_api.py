@@ -44,9 +44,22 @@ def test_login_nao_expoe_credenciais_na_tela():
     resposta = client.get("/login")
 
     assert resposta.status_code == 200
+    assert "Perfis separados" not in resposta.text
+    assert "PDF local" not in resposta.text
     for email, usuario in USUARIOS.items():
         assert email not in resposta.text
         assert usuario["senha"] not in resposta.text
+
+
+def test_menu_publico_nao_expoe_paineis_de_perfil():
+    resposta = client.get("/login")
+
+    assert resposta.status_code == 200
+    assert 'href="/admin"' not in resposta.text
+    assert 'href="/paciente"' not in resposta.text
+    assert 'href="/familiar"' not in resposta.text
+    assert 'href="/profissional"' not in resposta.text
+    assert 'href="/profissionais"' in resposta.text
 
 
 def test_api_profissionais_populada():
@@ -55,6 +68,21 @@ def test_api_profissionais_populada():
     assert resposta.status_code == 200
     assert resposta.json()["total"] == len(PROFISSIONAIS)
     assert resposta.json()["total"] >= 4
+
+
+def test_marketplace_profissionais():
+    resposta = client.get("/profissionais")
+
+    assert resposta.status_code == 200
+    assert "Marketplace de profissionais" in resposta.text
+    assert "Selecionar profissional" in resposta.text
+
+
+def test_pdf_acessos_sem_404():
+    resposta = client.get("/acessos-care-on-live.pdf")
+
+    assert resposta.status_code == 200
+    assert resposta.headers["content-type"] == "application/pdf"
 
 
 def test_cadastro_paciente_idade_invalida():

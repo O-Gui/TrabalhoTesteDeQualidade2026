@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Profissionais - Care on Live</title>
+  <title>Marketplace de Profissionais - Care on Live</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -13,28 +13,51 @@
       <span><strong>Care on Live</strong><small>GitHub Pages</small></span>
     </a>
     <nav>
-      <a href="index.html">Inicio</a>
-      <a href="admin.html">Admin</a>
-      <a href="profissionais.html">Profissionais</a>
-      <a href="pacientes.html">Pacientes</a>
-      <a href="familiar.html">Familiar</a>
+      <a href="index.html">Home</a>
+      <a href="profissionais.html">Marketplace</a>
+      <a href="medicamentos.html">Medicamentos</a>
       <a href="links.html">Links</a>
     </nav>
   </header>
   <main>
     <section class="hero">
-  <h1>Profissionais</h1>
-  <p>Dados falsos para popular a apresentacao do projeto.</p>
+  <h1>Marketplace de profissionais</h1>
+  <p>Escolha um profissional ficticio para simular a contratacao do cuidado domiciliar.</p>
+  <p id="selecionado" class="message"></p>
 </section>
-<section class="panel" style="margin-top:16px">
-  <table>
-  <thead><tr><th>Nome</th><th>Registro</th><th>Especialidade</th><th>Turno</th><th>Status</th><th>Pacientes</th></tr></thead>
-  <tbody><tr><td>Ana Paula Ribeiro</td><td>COREN-DF-12345</td><td>Cuidadora de idosos</td><td>Noturno</td><td>Disponivel</td><td>3</td></tr>
-<tr><td>Bruno Almeida Costa</td><td>COREN-GO-73421</td><td>Tecnico de enfermagem</td><td>Diurno</td><td>Em atendimento</td><td>2</td></tr>
-<tr><td>Camila Nascimento</td><td>FISIO-DF-55210</td><td>Fisioterapia motora</td><td>Vespertino</td><td>Disponivel</td><td>4</td></tr>
-<tr><td>Diego Martins Rocha</td><td>COREN-DF-99812</td><td>Enfermagem domiciliar</td><td>Plantonista</td><td>Indisponivel</td><td>1</td></tr></tbody>
-</table>
+<section class="marketplace">
+  <article class="card professional-card">
+    <div class="avatar">A</div>
+    <div><h2>Ana Paula Ribeiro</h2><p>Cuidadora de idosos - Brasilia - DF</p></div>
+    <p>Experiencia com rotina noturna, medicacao e acompanhamento de idosos com risco alto.</p>
+    <div><div class="rating">Nota 4.9/5</div><div class="price">R$ 180.00 por turno</div><p>Noturno - Disponivel</p></div>
+    <button class="button" onclick="selecionar('Ana Paula Ribeiro')">Selecionar</button>
+  </article><article class="card professional-card">
+    <div class="avatar">B</div>
+    <div><h2>Bruno Almeida Costa</h2><p>Tecnico de enfermagem - Aguas Claras - DF</p></div>
+    <p>Tecnico de enfermagem para controle de sinais vitais, glicemia e pressao.</p>
+    <div><div class="rating">Nota 4.7/5</div><div class="price">R$ 220.00 por turno</div><p>Diurno - Em atendimento</p></div>
+    <button class="button" onclick="selecionar('Bruno Almeida Costa')">Selecionar</button>
+  </article><article class="card professional-card">
+    <div class="avatar">C</div>
+    <div><h2>Camila Nascimento</h2><p>Fisioterapia motora - Taguatinga - DF</p></div>
+    <p>Atendimento domiciliar com foco em mobilidade, fisioterapia e prevencao de quedas.</p>
+    <div><div class="rating">Nota 4.8/5</div><div class="price">R$ 160.00 por turno</div><p>Vespertino - Disponivel</p></div>
+    <button class="button" onclick="selecionar('Camila Nascimento')">Selecionar</button>
+  </article><article class="card professional-card">
+    <div class="avatar">D</div>
+    <div><h2>Diego Martins Rocha</h2><p>Enfermagem domiciliar - Guara - DF</p></div>
+    <p>Enfermagem domiciliar para pos-cirurgico e acompanhamento intensivo.</p>
+    <div><div class="rating">Nota 4.6/5</div><div class="price">R$ 250.00 por turno</div><p>Plantonista - Indisponivel</p></div>
+    <button class="button" onclick="selecionar('Diego Martins Rocha')">Selecionar</button>
+  </article>
 </section>
+<script>
+function selecionar(nome) {
+  document.getElementById('selecionado').innerText = 'Profissional selecionado: ' + nome;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
   </main>
 </body>
 </html>

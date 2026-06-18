@@ -37,11 +37,9 @@ def page(title: str, body: str) -> str:
       <span><strong>Care on Live</strong><small>GitHub Pages</small></span>
     </a>
     <nav>
-      <a href="index.html">Inicio</a>
-      <a href="admin.html">Admin</a>
-      <a href="profissionais.html">Profissionais</a>
-      <a href="pacientes.html">Pacientes</a>
-      <a href="familiar.html">Familiar</a>
+      <a href="index.html">Home</a>
+      <a href="profissionais.html">Marketplace</a>
+      <a href="medicamentos.html">Medicamentos</a>
       <a href="links.html">Links</a>
     </nav>
   </header>
@@ -81,7 +79,7 @@ def generate_site() -> None:
 
     write_file(
         "styles.css",
-        """*{box-sizing:border-box}body{margin:0;background:#f4f7f8;color:#172126;font-family:Arial,Helvetica,sans-serif;letter-spacing:0}header{background:#fff;border-bottom:1px solid #d7e2e2;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px max(16px,calc((100vw - 1180px)/2));position:sticky;top:0}main{width:min(1180px,calc(100% - 32px));margin:24px auto 48px}.brand{display:flex;align-items:center;gap:12px;color:#172126;text-decoration:none}.brand-mark{width:38px;height:38px;border-radius:8px;background:#087f8c;color:#fff;display:grid;place-items:center;font-weight:700}.brand strong,.brand small{display:block}.brand small{color:#65747b;margin-top:2px}nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}nav a,.button{border:1px solid #d7e2e2;border-radius:8px;background:#fff;color:#172126;display:inline-flex;align-items:center;min-height:38px;padding:9px 12px;text-decoration:none}.button{background:#087f8c;color:#fff;border-color:#087f8c;font-weight:700}.hero,.panel,.card{background:#fff;border:1px solid #d7e2e2;border-radius:8px}.hero,.panel{padding:20px}.hero h1{margin:0 0 8px;font-size:30px}.muted,p{color:#65747b}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}.card{padding:16px}.card h2,.panel h2{margin:0 0 8px;font-size:20px}table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #d7e2e2;border-radius:8px;overflow:hidden}th,td{padding:12px;border-bottom:1px solid #d7e2e2;text-align:left;vertical-align:top}th{background:#eef5f3;color:#65747b;font-size:12px;text-transform:uppercase}.links{display:grid;gap:10px}.links a{background:#fff;border:1px solid #d7e2e2;border-radius:8px;padding:12px;color:#087f8c;text-decoration:none;font-weight:700}@media(max-width:820px){header{align-items:flex-start;flex-direction:column}.grid{grid-template-columns:1fr}table{display:block;overflow-x:auto;white-space:nowrap}}""",
+        """*{box-sizing:border-box}body{margin:0;background:#f4f7f8;color:#172126;font-family:Arial,Helvetica,sans-serif;letter-spacing:0}header{background:#fff;border-bottom:1px solid #d7e2e2;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px max(16px,calc((100vw - 1180px)/2));position:sticky;top:0}main{width:min(1180px,calc(100% - 32px));margin:24px auto 48px}.brand{display:flex;align-items:center;gap:12px;color:#172126;text-decoration:none}.brand-mark{width:38px;height:38px;border-radius:8px;background:#087f8c;color:#fff;display:grid;place-items:center;font-weight:700}.brand strong,.brand small{display:block}.brand small{color:#65747b;margin-top:2px}nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}nav a,.button{border:1px solid #d7e2e2;border-radius:8px;background:#fff;color:#172126;display:inline-flex;align-items:center;min-height:38px;padding:9px 12px;text-decoration:none}.button{background:#087f8c;color:#fff;border-color:#087f8c;font-weight:700}.hero,.panel,.card{background:#fff;border:1px solid #d7e2e2;border-radius:8px}.hero,.panel{padding:20px}.hero h1{margin:0 0 8px;font-size:30px}.muted,p{color:#65747b}.grid,.marketplace{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}.marketplace{grid-template-columns:repeat(4,minmax(0,1fr))}.card{padding:16px}.professional-card{display:grid;gap:12px;min-height:280px}.avatar{width:56px;height:56px;border-radius:8px;background:#eef5f3;color:#05626d;display:grid;place-items:center;font-size:20px;font-weight:700}.rating{color:#996f00;font-weight:700}.price{color:#05626d;font-size:18px;font-weight:700}.message{min-height:24px;color:#087443;font-weight:700}.card h2,.panel h2{margin:0 0 8px;font-size:20px}table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #d7e2e2;border-radius:8px;overflow:hidden}th,td{padding:12px;border-bottom:1px solid #d7e2e2;text-align:left;vertical-align:top}th{background:#eef5f3;color:#65747b;font-size:12px;text-transform:uppercase}.links{display:grid;gap:10px}.links a{background:#fff;border:1px solid #d7e2e2;border-radius:8px;padding:12px;color:#087f8c;text-decoration:none;font-weight:700}@media(max-width:820px){header{align-items:flex-start;flex-direction:column}.grid,.marketplace{grid-template-columns:1fr}table{display:block;overflow-x:auto;white-space:nowrap}}""",
     )
     write_file(".nojekyll", "")
 
@@ -91,16 +89,15 @@ def generate_site() -> None:
             "Inicio",
             f"""<section class="hero">
   <h1>Care on Live</h1>
-  <p>Versao estatica para GitHub Pages com links separados por perfil. Os acessos ficam somente no PDF separado.</p>
-  <a class="button" href="acessos-care-on-live.pdf">Abrir PDF de acessos</a>
+  <p>Versao estatica para GitHub Pages com marketplace de profissionais, pacientes demonstrativos e links separados por area.</p>
+  <a class="button" href="profissionais.html">Abrir marketplace</a>
 </section>
 {card_grid([
-    ("Administrador", "Visao de indicadores, pacientes e profissionais.", "admin.html"),
-    ("Profissionais", "Lista ficticia de cuidadores, enfermeiros e fisioterapeutas.", "profissionais.html"),
-    ("Pacientes", "Pacientes falsos usados para popular a demonstracao.", "pacientes.html"),
-    ("Familiar", "Acompanhamento remoto e alertas recentes.", "familiar.html"),
+    ("Marketplace", "Escolha entre cuidadores, enfermeiros e fisioterapeutas ficticios.", "profissionais.html"),
     ("Medicamentos", "Rotinas ficticias de medicacao.", "medicamentos.html"),
     ("Links separados", "Todos os links principais da entrega.", "links.html"),
+    ("Repositorio", "Codigo-fonte e documentacao tecnica do projeto.", "https://github.com/O-Gui/TrabalhoTesteDeQualidade2026"),
+    ("Wiki", "Plano de qualidade e documentos da atividade.", "https://github.com/O-Gui/TrabalhoTesteDeQualidade2026/wiki"),
 ])}""",
         ),
     )
@@ -128,14 +125,27 @@ def generate_site() -> None:
     write_file(
         "profissionais.html",
         page(
-            "Profissionais",
+            "Marketplace de Profissionais",
             f"""<section class="hero">
-  <h1>Profissionais</h1>
-  <p>Dados falsos para popular a apresentacao do projeto.</p>
+  <h1>Marketplace de profissionais</h1>
+  <p>Escolha um profissional ficticio para simular a contratacao do cuidado domiciliar.</p>
+  <p id="selecionado" class="message"></p>
 </section>
-<section class="panel" style="margin-top:16px">
-  {table(["Nome", "Registro", "Especialidade", "Turno", "Status", "Pacientes"], [[p["nome"], p["registro"], p["especialidade"], p["turno"], p["status"], p["pacientesAtendidos"]] for p in PROFISSIONAIS])}
-</section>""",
+<section class="marketplace">
+  {''.join(f'''<article class="card professional-card">
+    <div class="avatar">{escape(p["nome"][0])}</div>
+    <div><h2>{escape(p["nome"])}</h2><p>{escape(p["especialidade"])} - {escape(p["cidade"])}</p></div>
+    <p>{escape(p["resumo"])}</p>
+    <div><div class="rating">Nota {p["avaliacao"]:.1f}/5</div><div class="price">R$ {p["precoTurno"]:.2f} por turno</div><p>{escape(p["turno"])} - {escape(p["status"])}</p></div>
+    <button class="button" onclick="selecionar('{escape(p["nome"])}')">Selecionar</button>
+  </article>''' for p in PROFISSIONAIS)}
+</section>
+<script>
+function selecionar(nome) {{
+  document.getElementById('selecionado').innerText = 'Profissional selecionado: ' + nome;
+  window.scrollTo({{ top: 0, behavior: 'smooth' }});
+}}
+</script>""",
         ),
     )
 
@@ -193,10 +203,7 @@ def generate_site() -> None:
 </section>
 <section class="links" style="margin-top:16px">
   <a href="{PAGES_URL}">GitHub Pages - inicio</a>
-  <a href="{PAGES_URL}admin.html">Painel administrador</a>
-  <a href="{PAGES_URL}profissionais.html">Profissionais ficticios</a>
-  <a href="{PAGES_URL}pacientes.html">Pacientes ficticios</a>
-  <a href="{PAGES_URL}familiar.html">Painel familiar</a>
+  <a href="{PAGES_URL}profissionais.html">Marketplace de profissionais</a>
   <a href="{PAGES_URL}medicamentos.html">Medicamentos</a>
   <a href="{PAGES_URL}acessos-care-on-live.pdf">PDF de acessos</a>
   <a href="https://github.com/O-Gui/TrabalhoTesteDeQualidade2026">Repositorio GitHub</a>
