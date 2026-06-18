@@ -1,0 +1,107 @@
+=======================================================================
+PLANO DE QUALIDADE DE SOFTWARE - CARE ON LIVE
+=======================================================================
+
+Este documento define o Plano de Qualidade de Software para o projeto Care on Live,
+fundamentado no modelo de qualidade estabelecido pela norma ISO/IEC 25010.
+O objetivo é garantir que a plataforma atenda aos altos padrões exigidos para
+sistemas de saúde e monitoramento de idosos.
+
+-----------------------------------------------------------------------
+1. ÍNDICE PRETENDIDO PARA OS ATRIBUTOS DE QUALIDADE RELEVANTES
+-----------------------------------------------------------------------
+
+1.1. ADEQUAÇÃO FUNCIONAL (Functional Suitability)
+- Justificativa: O núcleo do sistema baseia-se no cadastro de rotinas e disparo
+  de alertas. Qualquer falha nessas funções pode comprometer o acompanhamento
+  de saúde do paciente, como a omissão de um remédio.
+- Metas Quantitativas / Critérios:
+  * 100% de cobertura nos Casos de Teste de regras de negócio críticas
+    (Cadastro de paciente, inserção de medicamento e disparo de SOS).
+  * Zero defeitos de severidade "Crítica" ou "Alta" permitidos nas entregas.
+
+1.2. CONFIABILIDADE (Reliability)
+- Justificativa: Em um sistema que envolve monitoramento de idosos e botão de
+  emergência (SOS), a disponibilidade ou falha na entrega de notificações é
+  um risco inaceitável à integridade física do usuário.
+- Metas Quantitativas / Critérios:
+  * Taxa de sucesso de entrega das notificações Push/SMS maior que 99%.
+  * Tempo de recuperação de falhas (MTTR) menor que 15 minutos.
+
+1.3. USABILIDADE (Usability)
+- Justificativa: A aplicação será utilizada por cuidadores (muitas vezes com
+  rotinas estressantes) e familiares (que podem ter diferentes níveis de
+  letramento digital). A interface deve ser livre de ambiguidades.
+- Metas Quantitativas / Critérios:
+  * Tempo máximo para acionamento do botão SOS: 1 clique na tela principal
+    (tempo de ação menor que 2 segundos).
+  * Taxa de conclusão de tarefas-chave (ex: adicionar um medicamento) sem
+    erros de operação: maior que 90% na primeira tentativa.
+
+1.4. SEGURANÇA (Security)
+- Justificativa: O aplicativo manipula dados sensíveis de saúde, localização
+  e informações de contato, exigindo estrita conformidade com a privacidade
+  dos pacientes.
+- Metas Quantitativas / Critérios:
+  * 100% das senhas armazenadas com hash criptográfico forte.
+  * 100% das requisições privadas (endpoints de pacientes e serviços) validadas
+    via Token de Autenticação (JWT).
+
+1.5. EFICIÊNCIA DE DESEMPENHO (Performance Efficiency)
+- Justificativa: O envio de dados em tempo real (como a localização no SOS)
+  necessita de processamento ágil para que a família tome atitudes
+  preventivas rapidamente.
+- Metas Quantitativas / Critérios:
+  * Tempo de resposta da API para ações críticas (ex: POST /servicos,
+    POST /pacientes) menor que 500ms.
+  * Tempo de carregamento das telas do aplicativo menor que 3 segundos em
+    redes 4G/Wi-Fi.
+
+-----------------------------------------------------------------------
+2. METODOLOGIA PARA VALIDAÇÃO DO ÍNDICE OBTIDO
+-----------------------------------------------------------------------
+
+Atributo ISO 25010       Métricas Utilizadas          Ferramentas / Procedimentos
+
+Adequação Funcional      CTs aprovados vs reprovados  Automação via Robot Framework
+Confiabilidade           Taxa de erro HTTP (500)      Suítes de testes no Postman
+Usabilidade              Cliques por fluxo e erros    Inspeção Heurística por pares
+Segurança                Endpoints protegidos         Scripts de Token no Postman
+Eficiência Desempenho    Tempo de resposta (ms)       Abas Network e Postman
+
+-----------------------------------------------------------------------
+3. MÉTODOS INVIÁVEIS NO ESCOPO ACADÊMICO VS. CENÁRIO REAL
+-----------------------------------------------------------------------
+
+3.1. TESTES CLÍNICOS DE USABILIDADE (LABORATÓRIO UX)
+- Cenário Acadêmico: Realizamos avaliação heurística apenas entre os alunos
+  desenvolvedores do sistema.
+- Cenário Real: Em uma HealthTech, alugaríamos um laboratório de usabilidade
+  para convidar usuários reais (cuidadores e idosos). Utilizaríamos técnicas de
+  Eye Tracking e Teste A/B em campo clínico para avaliar onde eles encontram
+  dificuldades sob pressão, garantindo máxima acessibilidade para a terceira idade.
+
+3.2. TESTES DE PENETRAÇÃO (PENTEST AVANÇADO / RED TEAMING)
+- Cenário Acadêmico: Validamos a segurança básica de rotas (Login e Tokens JWT)
+  através do Postman.
+- Cenário Real: Dados de saúde são o principal alvo de sequestro de dados
+  (Ransomware). Em um cenário corporativo, contrataríamos uma equipe externa
+  especializada em Segurança Ofensiva (Ethical Hackers) para tentar invadir
+  ativamente a infraestrutura, bancos de dados e APIs do Care on Live, além de
+  implementar programas de Bug Bounty.
+
+3.3. ENGENHARIA DE CAOS E TESTES DE CARGA MASSIVA
+- Cenário Acadêmico: Os testes avaliam apenas a performance local e respostas
+  isoladas de API.
+- Cenário Real: O servidor precisaria aguentar milhares de famílias consultando
+  o feed de câmeras ao mesmo tempo. No mundo real, usaríamos ferramentas como
+  JMeter ou Gatling em clusters na AWS para simular dezenas de milhares de
+  requisições simultâneas. Além disso, aplicaríamos ferramentas de Chaos
+  Engineering (como o Chaos Monkey) para derrubar servidores propositalmente e
+  testar se o nosso banco de dados em nuvem assume a operação sem que o botão
+  de SOS do cuidador saia do ar.
+
+=======================================================================
+Projeto acadêmico - Engenharia de Software (UCB) - 2026
+=======================================================================
+
