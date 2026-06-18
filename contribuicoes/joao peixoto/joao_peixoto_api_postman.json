@@ -1,0 +1,204 @@
+{
+  "info": {
+    "name": "Joao Peixoto - Testes API Medicamentos e SOS",
+    "description": "Colecao Postman com testes de API para cadastro de medicamentos e acionamento de SOS.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "API 01 - Medicamentos",
+      "item": [
+        {
+          "name": "CT01 - Salvar medicamento com dados validos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Mensagem de sucesso\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.mensagem).to.eql(\"Medicação salva na rotina\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paciente\": \"Maria de Lourdes\",\n  \"nomeRemedio\": \"Losartana 50mg\",\n  \"horarioRemedio\": \"08:00\",\n  \"quantidadeRemedio\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/medicamentos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "medicamentos"
+              ]
+            }
+          }
+        },
+        {
+          "name": "CT02 - Bloquear quantidade zerada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Mensagem de quantidade invalida\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.mensagem).to.eql(\"A quantidade deve ser maior que zero\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paciente\": \"Maria de Lourdes\",\n  \"nomeRemedio\": \"Losartana 50mg\",\n  \"horarioRemedio\": \"08:00\",\n  \"quantidadeRemedio\": 0\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/medicamentos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "medicamentos"
+              ]
+            }
+          }
+        },
+        {
+          "name": "CT03 - Bloquear quantidade negativa",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Mensagem de quantidade invalida\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.mensagem).to.eql(\"A quantidade deve ser maior que zero\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paciente\": \"Maria de Lourdes\",\n  \"nomeRemedio\": \"Losartana 50mg\",\n  \"horarioRemedio\": \"08:00\",\n  \"quantidadeRemedio\": -1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/medicamentos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "medicamentos"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "API 02 - SOS",
+      "item": [
+        {
+          "name": "CT04 - Acionar SOS com sucesso",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Mensagem de SOS\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.mensagem).to.eql(\"SOS acionado e familia notificada\");",
+                  "});",
+                  "",
+                  "pm.test(\"Tipo deve ser SOS\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.dados.tipo).to.eql(\"SOS\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paciente\": \"Maria de Lourdes\",\n  \"localizacao\": \"Residencia\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/sos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "sos"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
