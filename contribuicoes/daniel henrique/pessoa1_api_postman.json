@@ -1,0 +1,199 @@
+{
+  "info": {
+    "name": "Pessoa 1 - Testes API Login e Profissionais",
+    "description": "Colecao Postman da Pessoa 1 com dois testes de API: login e profissionais disponiveis.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "API 01 - Login",
+      "item": [
+        {
+          "name": "CT01 - Login valido de profissional",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Mensagem de login com sucesso\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.mensagem).to.eql(\"Login realizado com sucesso\");",
+                  "});",
+                  "",
+                  "pm.test(\"Perfil deve ser profissional\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.usuario.perfil).to.eql(\"profissional\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"cuidador@careonlive.com\",\n  \"senha\": \"senhaSegura123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "CT02 - Login invalido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 401\", function () {",
+                  "    pm.response.to.have.status(401);",
+                  "});",
+                  "",
+                  "pm.test(\"Mensagem de credenciais invalidas\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.mensagem).to.eql(\"Credenciais inv\u00e1lidas\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"erro@careonlive.com\",\n  \"senha\": \"senhaErrada\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "login"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "API 02 - Profissionais Disponiveis",
+      "item": [
+        {
+          "name": "CT03 - Listar profissionais com sucesso",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Total deve ser maior ou igual a 4\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.total).to.be.at.least(4);",
+                  "});",
+                  "",
+                  "pm.test(\"Dados deve ser uma lista\", function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.dados).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/profissionais",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "profissionais"
+              ]
+            }
+          }
+        },
+        {
+          "name": "CT04 - Validar contrato do primeiro profissional",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Primeiro profissional deve possuir campos obrigatorios\", function () {",
+                  "    var json = pm.response.json();",
+                  "    var primeiro = json.dados[0];",
+                  "    pm.expect(primeiro).to.have.property(\"nome\");",
+                  "    pm.expect(primeiro).to.have.property(\"especialidade\");",
+                  "    pm.expect(primeiro).to.have.property(\"status\");",
+                  "    pm.expect(primeiro).to.have.property(\"email\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/profissionais",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "profissionais"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
